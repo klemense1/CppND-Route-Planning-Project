@@ -22,9 +22,9 @@ class RouteModel : public Model {
         float distance(Node other) const {
             return std::sqrt(std::pow((x - other.x), 2) + std::pow((y - other.y), 2));
         }
-
         Node(){}
         Node(int idx, RouteModel * search_model, Model::Node node) : Model::Node(node), parent_model(search_model), index(idx) {}
+        int GetIndex() const { return index; }
 
       private:
         int index;
@@ -43,5 +43,12 @@ class RouteModel : public Model {
     std::vector<Node> m_Nodes;
 
 };
+
+inline bool compareNodes(RouteModel::Node* n1, RouteModel::Node* n2)
+{
+    float f1 = n1->h_value + n1->g_value;
+    float f2 = n2->h_value + n2->g_value;
+    return (f1 < f2);
+}
 
 #endif
